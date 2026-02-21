@@ -1,0 +1,81 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import emoji
+df = pd.read_csv("C:\\Users\\DELL\\Downloads\\India_50_Cities_30_Days_With_AQI_And_Day.csv")
+print("--------- STATISTICAL ANALYSIS ----------")
+print("\n")
+print("~~~~~~~~~~~~~~~Highest temperature per city~~~~~~~~~~~~~~~")
+index=df.groupby("City")["Max_Temperature"].idxmax()
+result = df.loc[index,["City","Max_Temperature","Day"]]
+print(result.to_string(index=False))##to hide the index values
+print("\n")
+
+print("~~~~~~~~~~~~~~~Lowest temperature per city~~~~~~~~~~~~~~~")
+
+inx=df.groupby("City")["Min_Temperature"].idxmin()
+res = df.loc[inx,["City","Min_Temperature","Day"]]
+print(res.to_string(index=False))
+print("\n")
+
+print("~~~~~~~~~~~~~~~Highest temperature overall (India)~~~~~~~~~~~~~~~")
+
+
+x=df["Max_Temperature"].idxmax()
+res1 = df.loc[x,["City","Max_Temperature","Day"]]
+print(res1.to_string(index=False))
+print("\n")
+
+print("~~~~~~~~~~~~~~~Lowest temperature overall (India)~~~~~~~~~~~~~~~")
+
+y=df["Min_Temperature"].idxmin()
+res2 = df.loc[y,["City","Min_Temperature","Day"]]
+print(res2.to_string(index=False))
+print("\n")
+
+ind=df.groupby("City")["AQI"].idxmax()
+idx=df.groupby("City")["AQI"].idxmin()
+result1 = df.loc[ind,["City","AQI","Day"]]
+result2 = df.loc[idx,["City","AQI","Day"]]
+print("~~~~~~~~~~~~~~~Highest AQI per city~~~~~~~~~~~~~~~")
+
+print(result1.to_string(index=False))
+print("\n")
+
+print("~~~~~~~~~~~~~~~Lowest AQI per city~~~~~~~~~~~~~~~")
+print(result2.to_string(index=False))
+print("\n")
+
+print("~~~~~~~~~~~~~~~Highest AQI overall (India)~~~~~~~~~~~~~~~")
+
+z=df["AQI"].idxmax()
+result3 = df.loc[z,["City","AQI","Day"]]
+print(result3.to_string(index=False))
+print("\n")
+
+print("~~~~~~~~~~~~~~~Lowest AQI overall (India)~~~~~~~~~~~~~~~")
+w=df["AQI"].idxmin()
+result4 = df.loc[w,["City","AQI","Day"]]
+print(result4.to_string(index=False))
+print("\n")
+
+print("~~~~~~~~~~~~~Average Temperature per city~~~~~~~~~~~~")
+s=df.groupby("City",as_index=False)["Temperature"].mean() #i use as_index isse mene city jo ki index ke roop me thi use index se hta diya kyoki agar vo index rhti to print wali line me to.string use hta deti 
+print(s.to_string(index=False))
+print("\n")
+
+print("~~~~~~~~~~~~~Average AQI per city~~~~~~~~~~~~~~")
+p=df.groupby("City",as_index=False)["AQI"].mean()
+print(p.to_string(index=False))
+print("\n")
+
+print("~~~~~~~~~~~Total Rainfall per city~~~~~~~~~~~~")
+q=df.groupby("City",as_index=False)["Rainfall"].sum()
+print(q.to_string(index=False))
+print("\n")
+
+print("~~~~~~~~~~~Most Humid city~~~~~~~~~~~~~~~")
+r=df["Humidity"].idxmax()
+res5=df.loc[r,["City","Humidity"]]
+print(res5.to_string(index=False))
+
