@@ -2,80 +2,288 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import emoji
+import math
 df = pd.read_csv("C:\\Users\\DELL\\Downloads\\India_50_Cities_30_Days_With_AQI_And_Day.csv")
-print("--------- STATISTICAL ANALYSIS ----------")
+print("--------- STATISTICAL ANALYSIS (Temperature-Section) ----------")
 print("\n")
-print("~~~~~~~~~~~~~~~Highest temperature per city~~~~~~~~~~~~~~~")
+print("Highest temperature per city: ")
 index=df.groupby("City")["Max_Temperature"].idxmax()
 result = df.loc[index,["City","Max_Temperature","Day"]]
 print(result.to_string(index=False))##to hide the index values
 print("\n")
 
-print("~~~~~~~~~~~~~~~Lowest temperature per city~~~~~~~~~~~~~~~")
-
+print("Lowest temperature per city: ")
+print("\n")
 inx=df.groupby("City")["Min_Temperature"].idxmin()
 res = df.loc[inx,["City","Min_Temperature","Day"]]
 print(res.to_string(index=False))
 print("\n")
 
-print("~~~~~~~~~~~~~~~Highest temperature overall (India)~~~~~~~~~~~~~~~")
-
-
+print("Highest temperature overall (India): ")
+print("\n")
 x=df["Max_Temperature"].idxmax()
 res1 = df.loc[x,["City","Max_Temperature","Day"]]
 print(res1.to_string(index=False))
 print("\n")
 
-print("~~~~~~~~~~~~~~~Lowest temperature overall (India)~~~~~~~~~~~~~~~")
-
+print("Lowest temperature overall (India): ")
+print("\n")
 y=df["Min_Temperature"].idxmin()
 res2 = df.loc[y,["City","Min_Temperature","Day"]]
 print(res2.to_string(index=False))
+print("\n")
+
+print("Average Temperature per city: ")
+print("\n")
+s=df.groupby("City",as_index=False)["Temperature"].mean() #i use as_index isse mene city jo ki index ke roop me thi use index se hta diya kyoki agar vo index rhti to print wali line me to.string use hta deti 
+print(s.to_string(index=False))
+print("\n")
+
+print("Heatways day in India: ")
+print("\n")
+a=df[df["Max_Temperature"]>40].groupby("City").size()
+print(a)
+
+print("Cold days in India: ")
+print("\n")
+b=df[df["Min_Temperature"]<20].groupby("City").size()
+print(b)
+
+print("--------- STATISTICAL ANALYSIS (AQI-Section) ----------")
 print("\n")
 
 ind=df.groupby("City")["AQI"].idxmax()
 idx=df.groupby("City")["AQI"].idxmin()
 result1 = df.loc[ind,["City","AQI","Day"]]
 result2 = df.loc[idx,["City","AQI","Day"]]
-print("~~~~~~~~~~~~~~~Highest AQI per city~~~~~~~~~~~~~~~")
 
+print("Highest AQI per city: ")
+print("\n")
 print(result1.to_string(index=False))
 print("\n")
 
-print("~~~~~~~~~~~~~~~Lowest AQI per city~~~~~~~~~~~~~~~")
+print("Lowest AQI per city: ")
+print("\n")
 print(result2.to_string(index=False))
 print("\n")
 
-print("~~~~~~~~~~~~~~~Highest AQI overall (India)~~~~~~~~~~~~~~~")
-
+print("Highest AQI overall (India): ")
+print("\n")
 z=df["AQI"].idxmax()
 result3 = df.loc[z,["City","AQI","Day"]]
 print(result3.to_string(index=False))
 print("\n")
 
-print("~~~~~~~~~~~~~~~Lowest AQI overall (India)~~~~~~~~~~~~~~~")
+print("Lowest AQI overall (India): ")
+print("\n")
 w=df["AQI"].idxmin()
 result4 = df.loc[w,["City","AQI","Day"]]
 print(result4.to_string(index=False))
 print("\n")
 
-print("~~~~~~~~~~~~~Average Temperature per city~~~~~~~~~~~~")
-s=df.groupby("City",as_index=False)["Temperature"].mean() #i use as_index isse mene city jo ki index ke roop me thi use index se hta diya kyoki agar vo index rhti to print wali line me to.string use hta deti 
-print(s.to_string(index=False))
+print("Average AQI per city: ")
 print("\n")
-
-print("~~~~~~~~~~~~~Average AQI per city~~~~~~~~~~~~~~")
 p=df.groupby("City",as_index=False)["AQI"].mean()
 print(p.to_string(index=False))
 print("\n")
 
-print("~~~~~~~~~~~Total Rainfall per city~~~~~~~~~~~~")
+print("--------- STATISTICAL ANALYSIS (Rainfall-Section) ----------")
+print("\n")
+
+print("Total/Monthly Rainfall per city: ")
+print("\n")
 q=df.groupby("City",as_index=False)["Rainfall"].sum()
 print(q.to_string(index=False))
 print("\n")
 
-print("~~~~~~~~~~~Most Humid city~~~~~~~~~~~~~~~")
+print("Total Rainfall in the india: ")
+total_rainfall=df["Rainfall"].sum()
+print(total_rainfall)
+print("\n")
+
+print("Highest Rainfall per city: ")
+highest_rainfall_city=df.groupby("City")["Rainfall"].idxmax()
+res6=df.loc[highest_rainfall_city,["City","Rainfall","Day"]]
+print(res6.to_string(index=False))
+print("\n")
+
+print("How many times heavy rainfall: ")
+heavy_rainfall=df[df["Rainfall"]>50].groupby("City").size()
+print(heavy_rainfall)
+print("\n")
+
+print("--------- STATISTICAL ANALYSIS (Humidity-Section) ----------")
+print("\n")
+
+print("Most Humid city: ")
 r=df["Humidity"].idxmax()
 res5=df.loc[r,["City","Humidity"]]
 print(res5.to_string(index=False))
+print("\n")
+
+print("Less Humid city: ")
+rr=df["Humidity"].idxmin()
+res7=df.loc[rr,["City","Humidity"]]
+print(res7.to_string(index=False))
+print("\n")
+
+
+print("Average Humidity per city: ")
+avg_humid=df.groupby("City",as_index=False)["Humidity"].mean()
+print(avg_humid.to_string(index=False))
+print("\n")
+
+print("City wise Highest humidity: ")
+high_humid=df.groupby("City")["Humidity"].idxmax()
+res8=df.loc[high_humid,["City","Humidity","Day"]]
+print(res8.to_string(index=False))
+print("\n")
+
+print("City wise Lowest humidity: ")
+low_humid=df.groupby("City")["Humidity"].idxmin()
+res9=df.loc[low_humid,["City","Humidity","Day"]]
+print(res9.to_string(index=False))
+print("\n")
+
+
+print("--------- STATISTICAL ANALYSIS (Wind_Speed-Section) ----------")
+print("\n")
+
+print("Average wind speed per city: ")
+high_wind=df.groupby("City",as_index=False)["Wind_Speed"].mean()
+print(high_wind.to_string(index=False))
+print("\n")
+
+storm_level=df[df["Wind_Speed"]>30].groupby("City").size()
+print(storm_level)
+print("\n")
+
+calm_days=df[df["Wind_Speed"]<10].groupby("City").size()
+print(calm_days)
+print("\n")
+
+
+print("-------- Trend Detection System --------------\n")
+
+print("Trend of Temperature:-\n")
+
+first_temp = df.groupby("City")["Temperature"].first()
+last_temp = df.groupby("City")["Temperature"].last()
+
+for city in first_temp.index:
+    diff = last_temp[city] - first_temp[city]
+    
+    if diff > 0:
+        print(f"{city} → Increasing")
+    elif diff < 0:
+        print(f"{city} → Decreasing")
+    else:
+        print(f"{city} → Stable")
+
+
+print("\nTrend of AQI:-\n")
+
+first_aqi = df.groupby("City")["AQI"].first()
+last_aqi = df.groupby("City")["AQI"].last()
+
+for city in first_aqi.index:
+    diff = last_aqi[city] - first_aqi[city]
+    
+    if diff > 0:
+        print(f"{city} → Increasing")
+    elif diff < 0:
+        print(f"{city} → Decreasing")
+    else:
+        print(f"{city} → Stable")
+
+
+print("\nTrend of Rainfall:-\n")
+
+first_Rain = df.groupby("City")["Rainfall"].first()
+last_Rain = df.groupby("City")["Rainfall"].last()
+
+for city in first_Rain.index:
+    diff = last_Rain[city] - first_Rain[city]
+    
+    if diff > 0:
+        print(f"{city} → Increasing")
+    elif diff < 0:
+        print(f"{city} → Decreasing")
+    else:
+        print(f"{city} → Stable")
+
+
+print("-------------- Relationship Analyzer ----------\n")
+
+mean_temp=df["Temperature"].mean()
+mean_humid=df["Humidity"].mean()
+mean_rain=df["Rainfall"].mean()
+mean_ws=df["Wind_Speed"].mean()
+
+df["dev_temp"]=df["Temperature"]-mean_temp
+df["dev_humid"]=df["Humidity"]-mean_humid
+df["dev_rain"]=df["Rainfall"]-mean_rain
+df["dev_ws"]=df["Wind_Speed"]-mean_ws
+
+df["sq_dev_temp"]=df["dev_temp"]**2
+df["sq_dev_humid"]=df["dev_humid"]**2
+df["sq_dev_rain"]=df["dev_rain"]**2
+df["sq_dev_ws"]=df["dev_ws"]**2
+
+df["mul_temp_humid"]=df["dev_temp"]*df["dev_humid"]
+total_sum_temp_humid=df["mul_temp_humid"].sum()
+
+df["mul_rain_humid"]=df["dev_rain"]*df["dev_humid"]
+total_sum_rain_humid=df["mul_rain_humid"].sum()
+
+df["mul_ws_rain"]=df["dev_rain"]*df["dev_ws"]
+total_sum_ws_rain=df["mul_ws_rain"].sum()
+
+total_sum_sq_dev_temp=df["sq_dev_temp"].sum()
+total_sum_sq_dev_humid=df["sq_dev_humid"].sum()
+total_sum_sq_dev_ws=df["sq_dev_ws"].sum()
+total_sum_sq_dev_rain=df["sq_dev_rain"].sum()
+
+temp_humid=total_sum_sq_dev_temp * total_sum_sq_dev_humid
+lower=(temp_humid)**0.5
+
+rain_humid=total_sum_sq_dev_rain * total_sum_sq_dev_humid
+lower2=(rain_humid)**0.5
+
+ws_rain=total_sum_sq_dev_ws * total_sum_sq_dev_rain
+lower3=(ws_rain)**0.5
+
+
+
+print("Temperature v/s Humidity: ")
+correlation_temp_humid=total_sum_temp_humid/lower
+if correlation_temp_humid > 0:
+    print(f"Temp-Humidity:{round(correlation_temp_humid,2)} -> Direct Relation")
+elif correlation_temp_humid < 0:
+    print(f"Temp-Humidity:{round(correlation_temp_humid,2)} -> Inverse Relation")
+else:
+    print(f"Temp-Humidity:{round(correlation_temp_humid,2)} -> No Relation")
+
+
+print("Rainfall v/s Humidity: ")
+correlation_rain_humid=total_sum_rain_humid/lower2
+if correlation_rain_humid > 0:
+    print(f"Rain-Humidity:{round(correlation_rain_humid,2)} -> Direct Relation")
+elif correlation_rain_humid < 0:
+    print(f"Rain-Humidity:{round(correlation_rain_humid,2)} -> Inverse Relation")
+else:
+    print(f"Rain-Humidity:{round(correlation_rain_humid,2)} -> No Relation")
+
+
+print("Wind_Speed v/s Rainfall: ")
+correlation_ws_rain=total_sum_ws_rain/lower3
+if correlation_ws_rain > 0:
+     print(f"Wind_speed-Rain:{round(correlation_ws_rain,2)} -> Direct Relation")
+elif correlation_ws_rain < 0:
+    print(f"Wind_speed-Rain:{round(correlation_ws_rain,2)} -> Inverse Relation")
+else:
+     print(f"Wind_Speed-Rain:{round(correlation_ws_rain,2)} -> No Relation")
+
+
+
 
