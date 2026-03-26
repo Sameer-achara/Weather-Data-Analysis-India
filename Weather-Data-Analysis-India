@@ -284,6 +284,43 @@ elif correlation_ws_rain < 0:
 else:
      print(f"Wind_Speed-Rain:{round(correlation_ws_rain,2)} -> No Relation")
 
+city_name = "Mumbai"
+city_data = df[df["City"] == city_name].sort_values("Day") ## sorting is needed becoz without sorting jo days hai vo randomly slect honge and mene sort kr diya to days 1,2,3,.... aayenge
+plt.plot(city_data["Day"], city_data["Temperature"], marker='o',color='black')
+plt.title(f"{city_name} Temperature Trend")
+plt.xlabel("Day")
+plt.ylabel("Temperature (°C)")
+plt.grid(color='blue',alpha=0.9)
+plt.show()
 
+plt.bar(s["City"],s["Temperature"],color='skyblue',edgecolor='black',linewidth=2)
+plt.title("Average Temperature per City")
+plt.xlabel("City")
+plt.ylabel("Temperature (°C)")
+plt.xticks(rotation=90)
+plt.show()
+
+plt.bar(p["City"],p["AQI"],color='black',edgecolor='yellow',linewidth=1)
+plt.title("Average AQI per City")
+plt.xlabel("City")
+plt.ylabel("AQI (µg/m³)")
+plt.xticks(rotation=90)
+plt.show()
+
+plt.figure(figsize=(10,6))
+city_codes, city_names = pd.factorize(df["City"]) ## her ek city ko ek-ek diff color code de diya taki scatter plot ke har point ko laag alag color de sku
+plt.scatter(df["Temperature"],df["Humidity"],s=20,alpha=0.5,c=city_codes,cmap='viridis')
+plt.title("Temperature vs Humidity (City-wise color)")
+plt.xlabel("Temperature (°C)")
+plt.ylabel("Humidity (%)")
+plt.colorbar(label="City Index")
+plt.show()
+
+plt.hist(df["Wind_Speed"],bins=20,color='skyblue', edgecolor='black', alpha=0.7)
+plt.title("Distribution of Wind Speed")
+plt.xlabel("Wind Speed (km/h)")
+plt.ylabel("Frequency")
+plt.grid(axis='y', alpha=0.5)
+plt.show()
 
 
