@@ -167,7 +167,7 @@ Through this project I learned:
 
 ## 👨‍💻 Author
 
-Sam
+Sameer
 
 B.Tech CSE Student  
 Arya College of Engineering & IT, Jaipur
